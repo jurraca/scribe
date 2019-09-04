@@ -17,12 +17,11 @@ target_language = sys.argv[2]
 with open(filepath, 'r') as f:
 	text = f.read() 
 
-
 while len(text) > 4000: 
 	print("Text length: " + str(len(text)))
 	part = text[:4000] 
 	translate = boto3.client(service_name='translate', region_name='us-west-2', use_ssl=True)
-	result = translate.translate_text(Text=part , TerminologyNames=['lightning'], SourceLanguageCode="en", TargetLanguageCode=target_language) 
+	result = translate.translate_text(Text=part, TerminologyNames=['lightning'], SourceLanguageCode="en", TargetLanguageCode=target_language) 
 	output_text = result.get('TranslatedText')
 
 	with open(filepath + "_output.txt", "a") as p: 
