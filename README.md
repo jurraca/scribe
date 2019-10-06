@@ -2,6 +2,7 @@
 
 Set of scripts to work AWS Transcribe and Translate. Nothing elaborate, just extending the basic examples from the docs. 
 
+<<<<<<< HEAD
 The goal is to provide a pipeline from audio to (global) text-based content from conferences, meetups, presentations, making it easier for organizers to intake and distribute their content worldwide. The goal is NOT to have a perfect transcript or translation, but to get 90% of the way there, for a human to clean up the mistakes, add formatting, and/or punctuation. I believe it's much better to provide a transcript that can be readily fixed by a native speaker than not provide one at all. 
 
 The principal hurdle for transcriptions & translations is the field-specific and technical terminology. For this, one can build Custom Vocabularies[https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html] to tell Transcribe how to handle those terms, and Translate how to translate them. 
@@ -29,3 +30,15 @@ python3 translate.py <txt_file_path> <target_language> --custom <custom_vocab>
 
 
 
+=======
+#### Required fields
+
+  * text filepath 
+  * target language code: two-character code for the language you're translating into. 
+
+Optionally, you can specify the name (not filepath) of a Custom Terminology csv file hosted in your AWS account. 
+
+#### Usage
+
+python3 script.py <txt_file_path> <target_language>
+>>>>>>> d21a04d4cf2cf72ad9dc15c846cd119c8ac52ff7
