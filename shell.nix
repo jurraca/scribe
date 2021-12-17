@@ -8,6 +8,7 @@ in
 pkgs.mkShell {
   buildInputs = [
     python-with-my-packages
+    pkgs.aws
     # other dependencies
   ];
   shellHook = ''

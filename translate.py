@@ -27,18 +27,19 @@ def start_job(filepath, base_language, target_language, custom_vocab):
 	with open(filepath, 'r') as f:
 		text = f.read()
 
+	translate = boto3.client(service_name='translate', region_name='us-west-2', use_ssl=True)
+
 	parts = split_text(text)
 	for p in parts:
 		print("Text length: " + str(len(p)))
-		translate = boto3.client(service_name='translate', region_name='us-west-2', use_ssl=True)
-		result = translate.translate_text(Text=p, SourceLanguageCode=base_language, TargetLanguageCode=target_language) # TerminologyNames=[custom_vocab],
+		result = translate.translate_text(Text=p, SourceLanguageCode=base_language, TargetLanguageCode=target_language, TerminologyNames=[ ])
 		output_text = result.get('TranslatedText')
 		output_path = "translation.txt"
 
 		with open(output_path, "a") as out: 
 			out.write(output_text)	
 
-	return print("Done! output file located @ " + output_path) 
+	return print("Done! output file located @ " + output_path)
 
 # AWS only accepts ~ 4000 words at a time, so we split it up and return an array of text blobs. 
 def split_text(text): 
