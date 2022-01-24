@@ -34,7 +34,7 @@ def start_job(filepath, base_language, target_language, custom_vocab, outpath):
 	parts = split_text(text)
 	for p in parts:
 		print("Text length: " + str(len(p)))
-		result = translate.translate_text(Text=p, SourceLanguageCode=base_language, TargetLanguageCode=target_language, TerminologyNames=[ "bitcoin_terminology" ])
+		result = translate.translate_text(Text=p, SourceLanguageCode=base_language, TargetLanguageCode=target_language, TerminologyNames=[ custom_vocab ])
 		output_text = result.get('TranslatedText')
 		if outpath is None:
 			output_path = "{}-{}.txt".format(filepath, target_language)
