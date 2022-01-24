@@ -2,6 +2,7 @@
 let
   python-with-my-packages = pkgs.python3.withPackages (p: with p; [
     boto3
+    markdown
     # other python packages you want
   ]);
 in
