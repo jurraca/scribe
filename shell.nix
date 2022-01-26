@@ -9,7 +9,7 @@ in
 pkgs.mkShell {
   buildInputs = [
     python-with-my-packages
-    pkgs.aws
+    pkgs.awscli
     # other dependencies
   ];
   shellHook = ''

@@ -7,7 +7,7 @@ import boto3
 import sys 
 import requests 
 import json 
-import argparse 
+import argparse
 
 def parse_args(): 
 	args = parser.parse_args()	
