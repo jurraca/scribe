@@ -1,30 +1,21 @@
 ## README 
 
-Set of scripts to work AWS [Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html) and [Translate](https://aws.amazon.com/translate/). Nothing elaborate, just extending the basic examples from the docs. 
+"_Traduttore, traditore_" - Italian saying
 
-The goal is to provide a pipeline from audio to (global) text-based content from conferences, meetups, presentations, making it easier for organizers to intake and distribute their content worldwide. The goal is NOT to have a perfect transcript or translation, but to get 90% of the way there, for a human to clean up the mistakes, add formatting, and/or punctuation. I believe it's much better to provide a transcript that can be readily fixed by a native speaker than not provide one at all. 
+Set of scripts to work with AWS [Translate](https://aws.amazon.com/translate/) and [Transcribe](https://docs.aws.amazon.com/transcribe/latest/dg/what-is-transcribe.html). Some s3 wrappers are provided to work with batch file uploads and downloads.
 
-The principal hurdle for transcriptions & translations is the field-specific and technical terminology. For this, one can build [Custom Vocabularies](https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html) to tell Transcribe how to handle those terms, and Translate how to translate them. 
+Machine-learning-generated translation has gotten quite good, especially in the last several years (as of 2022). In the realm of technical translation, we have the explicit goal to disseminate knowledge without losing technical correctness. Assuming the basic translation is satisfactory, the main problem is that the default model will fail to accurately translate highly specific technical terminology (for example, in cryptocurrency parlance: "fork", "cold storage", "uncle blocks"). AWS has a feature which solves for this, [Custom Vocabularies](https://docs.aws.amazon.com/transcribe/latest/dg/how-vocabulary.html), effectively a CSV mapping of source language to target language referenced via S3.
 
-Transcribing from audio can be very slow, depending on the length of the audio clip and the bit rate. Use `ffmpeg` or a similar tool to resize the file and make it as small as possible. 
-
-(The Transcribe module also offers a way transcribe from an audio stream which I didn't explore here.)  
-
-#### Transcribe.py usage:
-
-- s3_bucket: the s3 bucket address for the audio to transcribe 
-- job_name: a unique name for the transcription job
-- audio_format: 'wav', 'mp3', etc
-
-Usage: 
-`python3 transcribe.py <s3_bucket> <job_name> <audio_format>` 
+More generally, I believe the workflow of (non-literary) translation should maximize automation on the front end, and leverage a community of native speakers to review the translation. The goal is NOT to generate a perfect transcript or translation via AWS, but to get 97% of the way there, for a human to clean up the mistakes, add formatting, and/or punctuation, and be the final arbiter of whether the translation is good enough for public release. This cuts the time necessary to produce a translation from days to hours or minutes without sacrificing quality. This approach was developed while considering how to translate [Chaincode Labs'](chaincode.com) [seminar material](https://chaincode.gitbook.io/seminars/) as well as the [btctranscripts](https://btctranscripts.com/) repository--a true gold mine which deserves to be translated and disseminated.
 
 #### Translate.py usage:
-- text filepath
-- target language code: two-character code for the language you're translating into. 
 
-Optionally, you can specify the name (not filepath) of a Custom Terminology csv file hosted in your AWS account. 
+To start a basic translation of a local txt file, you'll need:
+- the local text filepath
+- source and target language code: two-character code for the language you're translating from and into (eg: "en" "es"). 
+
+Optionally, you can specify the S3 name (not filepath) of a Custom Terminology csv file hosted in your AWS account. 
 
 Usage: 
-`python3 translate.py <txt_file_path> <target_language> --custom <custom_vocab>`
+`python3 translate.py <txt_file_path> <source_language> <target_language> --custom <custom_vocab>`
 
