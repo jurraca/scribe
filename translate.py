@@ -25,6 +25,23 @@ def parse_args(parser):
 	outpath=args.output
 	return filepath, base_language, target_language, custom_vocab, outpath
 
+def start_batch_job(job_name, input_s3_uri, output_s3_uri, source_lang, target_lang, terminology_file_name):
+	client = boto3.client(service_name='translate', region_name='us-west-2', use_ssl=True)
+	response = client.start_text_translation_job(
+		JobName=job_name,
+	    InputDataConfig={
+	        'S3Uri': input_s3_uri,
+	        'ContentType': 'string'
+	    },
+	    OutputDataConfig={
+	        'S3Uri': output_s3_uri
+	    },
+	    DataAccessRoleArn='string',
+	    SourceLanguageCode=source_lang,
+	    TargetLanguageCodes=[ target_lang ],
+	    TerminologyNames=[ terminology_file_name ])
+	return response
+
 def start_job(filepath, base_language, target_language, custom_vocab, outpath):
 	with open(filepath, 'r') as f:
 		text = f.read()
