@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# TODO: 
-# - Enable custom terminology as optional param 
-# - Enable custom terminology search via https://docs.aws.amazon.com/translate/latest/dg/API_ListTerminologies.html 
-
 import boto3 
 import sys 
 import argparse 
