@@ -5,11 +5,13 @@ let
     markdown
     # other python packages you want
   ]);
+  elixir = pkgs.beam.packages.erlangR24.elixir_1_13;
 in
 pkgs.mkShell {
   buildInputs = [
     python-with-my-packages
     pkgs.awscli
+    elixir
     # other dependencies
   ];
   shellHook = ''
